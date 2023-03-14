@@ -1,3 +1,5 @@
+'''Copy of ./tests.py '''
+
 import unittest
 
 from translator import english_to_french, french_to_english

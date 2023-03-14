@@ -21,16 +21,28 @@ language_translator.set_service_url('https://api.us-east.language-translator.wat
 
 def english_to_french(english_text):
     '''Translate from English to French'''
-    french_text = language_translator.translate(
-            text=english_text,
-            model_id='en-fr').get_result()
-    #print(json.dumps(translation, indent=2, ensure_ascii=False))
-    return french_text
+    try:
+        translation = language_translator.translate(
+                text=english_text,
+                model_id='en-fr').get_result()
+        for key in translation:
+            if key.startswith('translation'):
+                value = translation[key][0]['translation']
+        french_text = value
+        return french_text
+    except ValueError:
+        return 'ValueError: text must be provided'
 
 def french_to_english(french_text):
     '''Translate from French to English'''
-    english_text = language_translator.translate(
-            text=french_text,
-            model_id='fr-en').get_result()
-    #print(json.dumps(translation, indent=2, ensure_ascii=False))
-    return english_text
+    try:
+        translation = language_translator.translate(
+                text=french_text,
+                model_id='fr-en').get_result()
+        for key in translation:
+            if key.startswith('translation'):
+                value = translation[key][0]['translation']
+        english_text = value
+        return english_text
+    except ValueError:
+        return 'ValueError: text must be provided'
